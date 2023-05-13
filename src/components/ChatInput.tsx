@@ -8,6 +8,7 @@ import { Message } from '@/lib/validator/message'
 import { nanoid } from 'nanoid'
 import { MessagesContext } from '@/context/messages'
 import { CornerDownLeft, Loader2 } from 'lucide-react'
+import { toast } from 'react-hot-toast'
 
 // When extends this interface because i want to be able to pass a custom className.
 //  The reason i am passing a HTMLDivElement is that the props that i am going to receive i going to pass that on to a div
@@ -75,6 +76,11 @@ const ChatInput: FC<ChatInputProps> = ({ className, ...props }) => {
       setTimeout(() => {
         textareaRef.current?.focus()
       }, 10)
+    },
+    onError: (_, message) => {
+      toast.error('Something went wrong. Please try again.')
+      removeMessage(message.id)
+      textareaRef.current?.focus()
     },
   })
 
